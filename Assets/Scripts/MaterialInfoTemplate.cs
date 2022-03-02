@@ -1,8 +1,9 @@
+using System;
 using UnityEngine;
-using UnityEngine.UI;
 
-[RequireComponent(typeof(Image))]
-public class MaterialOptionItem : MonoBehaviour
+[CreateAssetMenu(menuName = "ScriptableObjects/MaterialInfoTemplate")]
+[Serializable]
+public class MaterialInfoTemplate : ScriptableObject
 {
 	#region Definitions
 	#endregion Definitions
@@ -11,28 +12,29 @@ public class MaterialOptionItem : MonoBehaviour
 
 	//--- Serialized ---
 	[SerializeField]
-	private Image m_image;
+	private string m_name;
+	[SerializeField]
+	private Material m_material;
+	[SerializeField]
+	public Sprite m_previewImage;
+
 
 	//--- NonSerialized ---
 
 	#endregion Variables
 
 	#region Accessors
+
+	public string Name => m_name;
+	public Material Material => m_material;
+	public Sprite PreviewImage => m_previewImage;
+
 	#endregion Accessors
 
 	#region Unity Messages
 	#endregion Unity Messages
 
 	#region Runtime Functions
-
-	public void Init(Material a_material)
-	{
-		if (m_image == null)
-			return;
-
-		m_image.material = a_material;
-	}
-
 	#endregion Runtime Functions
 
 	#region Callback Functions
@@ -41,12 +43,6 @@ public class MaterialOptionItem : MonoBehaviour
 	#region Editor Functions
 
 #if UNITY_EDITOR
-
-	private void OnValidate()
-	{
-		if (m_image == null)
-			m_image = GetComponent<Image>();
-	}
 
 #endif
 

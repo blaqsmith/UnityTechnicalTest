@@ -548,7 +548,14 @@ MonoBehaviour:
   - {fileID: 8963733171179281396, guid: cc00de1ce6d96b44f9b5d4bcee7d1943, type: 3}
   - {fileID: 6228790708675823158, guid: 29ef187b695c33648875511048496180, type: 3}
   - {fileID: 933020624824483450, guid: 1def6e956f31ada4285bcab9ab3eb667, type: 3}
-  m_materialsPanel: {fileID: 297762733}
+  m_currentMaterialsPanel: {fileID: 297762733}
+  m_materialTemplates:
+  - {fileID: 11400000, guid: d04d09beeb69e2c4f81ce83aaaf0830f, type: 2}
+  - {fileID: 11400000, guid: 975c585632fca8f4c99d0107cdc090f5, type: 2}
+  - {fileID: 11400000, guid: 6c55382cf7bffcc468cef2366509ea8f, type: 2}
+  - {fileID: 11400000, guid: d68c340489931364c93ac4568a93a74e, type: 2}
+  m_uiCanvas: {fileID: 1600976746}
+  m_materialPickerPrefab: {fileID: 5112636912471957087, guid: 481b97b665d7e8547a3dc73ce5ba9b50, type: 3}
 --- !u!1 &610315078
 GameObject:
   m_ObjectHideFlags: 0
@@ -1101,7 +1108,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1237475296}
   m_Layer: 5
-  m_Name: MaterialPicker
+  m_Name: MaterialList
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1176,7 +1183,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0.00012207031, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1567977765

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/MeshInfoTemplate")]
@@ -6,6 +7,17 @@ using UnityEngine;
 public class MeshInfoTemplate : ScriptableObject
 {
 	#region Definitions
+
+	/// <summary>
+	/// Used to specify materials that we are allowed to change on this model
+	/// </summary>
+	[Serializable]
+	public class MaterialSlot
+	{
+		public int MaterialIndex;
+		public MaterialInfoTemplate DefaultMaterialTemplate;
+	}
+
 	#endregion Definitions
 
 	#region Variables
@@ -17,6 +29,8 @@ public class MeshInfoTemplate : ScriptableObject
 	private GameObject m_basePrefab;
 	[SerializeField]
 	private Sprite m_previewSprite;
+	[SerializeField]
+	private List<MaterialSlot> m_materialSlots;
 
 	//--- NonSerialized ---
 
@@ -27,6 +41,7 @@ public class MeshInfoTemplate : ScriptableObject
 	public string Name => m_name;
 	public GameObject BasePrefab => m_basePrefab;
 	public Sprite PreviewSprite => m_previewSprite;
+	public IList<MaterialSlot> MaterialSlots => m_materialSlots.AsReadOnly();
 
 	#endregion Accessors
 

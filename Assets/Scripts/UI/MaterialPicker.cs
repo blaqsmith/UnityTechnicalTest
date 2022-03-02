@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MaterialsPanel : MonoBehaviour
+public class MaterialPicker : MonoBehaviour
 {
 	#region Definitions
 	#endregion Definitions
@@ -15,8 +15,8 @@ public class MaterialsPanel : MonoBehaviour
 	private GameObject m_optionPrefab;
 
 	//--- NonSerialized ---
-	private MeshRenderer m_currentMeshRenderer;
 	private List<GameObject> m_optionItems = new List<GameObject>();
+	private System.Action<MaterialOption> m_optionSelectedCallback;
 
 	#endregion Variables
 
@@ -24,18 +24,33 @@ public class MaterialsPanel : MonoBehaviour
 	#endregion Accessors
 
 	#region Unity Messages
+
+	private void OnEnable()
+	{
+		RefreshOptions(AppManager.Instance.AllMaterialTemplates);
+	}
+
+	private void OnDisable()
+	{
+
+	}
+
 	#endregion Unity Messages
 
 	#region Runtime Functions
 
-	public void RefreshOptions(MeshRenderer a_meshRenderer)
+	public void SetCallback(System.Action<MaterialOption> a_optionSelectedCallback)
+	{
+		m_optionSelectedCallback = a_optionSelectedCallback;
+	}
+
+	public void RefreshOptions(IList<MaterialInfoTemplate> a_templates)
 	{
 		ClearOptions();
 
-		m_currentMeshRenderer = a_meshRenderer;
-		foreach (var material in a_meshRenderer.sharedMaterials)
+		foreach (var materialTemplate in a_templates)
 		{
-			CreateOption(material);
+			CreateOption(materialTemplate);
 		}
 	}
 
@@ -51,21 +66,29 @@ public class MaterialsPanel : MonoBehaviour
 		m_optionItems.Clear();
 	}
 
-	private void CreateOption(Material a_material)
+	private void CreateOption(MaterialInfoTemplate a_materialTemplate)
 	{
-		if (m_optionPrefab == null)
+		if (m_optionPrefab == null || a_materialTemplate == null)
 			return;
 
 		var option = UnityEditor.PrefabUtility.InstantiatePrefab(m_optionPrefab, m_optionsRoot) as GameObject;
-		var optionItem = option.GetComponent<MaterialOptionItem>();
+		var optionItem = option.GetComponent<MaterialOption>();
 		if (optionItem != null)
-			optionItem.Init(a_material);
+			optionItem.Init(-1, a_materialTemplate, OnMaterialPicked);
 		m_optionItems.Add(option);
 	}
+
 
 	#endregion Runtime Functions
 
 	#region Callback Functions
+
+	private void OnMaterialPicked(MaterialOption a_option)
+	{
+		m_optionSelectedCallback?.Invoke(a_option);
+		gameObject.SetActive(false);
+	}
+
 	#endregion Callback Functions
 
 	#region Editor Functions
