@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d15d4a937d4d9464ab7b48c83749fa69, type: 3}
+  m_Name: BalloonTemplate
+  m_EditorClassIdentifier: 
+  m_name: Balloon
+  m_basePrefab: {fileID: 1734578365305582, guid: e8efcd62075ecf14e8b4d795cfd7dcda, type: 3}
+  m_previewSprite: {fileID: 0}
+  m_materialSlots:
+  - MaterialIndex: 0
+    DefaultMaterialTemplate: {fileID: 11400000, guid: 6c55382cf7bffcc468cef2366509ea8f, type: 2}

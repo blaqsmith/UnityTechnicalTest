@@ -15,7 +15,7 @@ public class CurrentModelMaterialsPanel : MonoBehaviour
 	private GameObject m_optionPrefab;
 
 	//--- NonSerialized ---
-	private MeshRenderer m_currentMeshRenderer;
+	private MeshRenderer[] m_currentMeshRenderers;
 	private List<MaterialOption> m_optionItems = new List<MaterialOption>();
 	private int m_replacedMaterialIndex;
 
@@ -31,7 +31,7 @@ public class CurrentModelMaterialsPanel : MonoBehaviour
 
 	public void RefreshOptions(GameObject a_meshGameObject, MeshInfoTemplate a_meshTemplate)
 	{
-		m_currentMeshRenderer = a_meshGameObject.GetComponent<MeshRenderer>();
+		m_currentMeshRenderers = a_meshGameObject.GetComponentsInChildren<MeshRenderer>();
 
 		ClearOptions();
 
@@ -85,9 +85,20 @@ public class CurrentModelMaterialsPanel : MonoBehaviour
 	private void OnNewMaterialClicked(MaterialOption a_optionSelected)
 	{
 		Debug.Log("new matieral selected: " + a_optionSelected.MaterialTemplate.Name);
-		var materials = m_currentMeshRenderer.materials;
-		materials[m_replacedMaterialIndex] = a_optionSelected.MaterialTemplate.Material;
-		m_currentMeshRenderer.materials = materials;
+		foreach (var meshRenderer in m_currentMeshRenderers)
+		{
+			var materials = meshRenderer.materials;
+			materials[m_replacedMaterialIndex] = a_optionSelected.MaterialTemplate.Material;
+			meshRenderer.materials = materials;
+		}
+	}
+
+	public void OnToggleOptionsOpen()
+	{
+		if (m_optionsRoot != null)
+		{
+			m_optionsRoot.gameObject.SetActive(!m_optionsRoot.gameObject.activeSelf);
+		}
 	}
 
 	#endregion Callback Functions

@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,8 @@ public class MaterialOption : MonoBehaviour
 	#region Variables
 
 	//--- Serialized ---
+	[SerializeField]
+	private TextMeshProUGUI m_name;
 	[SerializeField]
 	private Image m_image;
 
@@ -38,6 +41,7 @@ public class MaterialOption : MonoBehaviour
 
 		MaterialIndex = a_materialIndex;
 		m_template = a_template;
+		m_name.text = m_template.Name;
 		m_image.sprite = a_template.PreviewImage;
 		m_clickCallback = a_clickCallback;
 	}
