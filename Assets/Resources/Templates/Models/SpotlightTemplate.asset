@@ -17,4 +17,4 @@ MonoBehaviour:
   m_previewSprite: {fileID: 0}
   m_materialSlots:
   - MaterialIndex: 0
-    DefaultMaterialTemplate: {fileID: 11400000, guid: d68c340489931364c93ac4568a93a74e, type: 2}
+    DefaultMaterialTemplate: {fileID: 11400000, guid: 9c4658c08a31c384f9e5f17e5c7764ba, type: 2}

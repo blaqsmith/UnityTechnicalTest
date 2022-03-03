@@ -84,7 +84,6 @@ public class CurrentModelMaterialsPanel : MonoBehaviour
 
 	private void OnNewMaterialClicked(MaterialOption a_optionSelected)
 	{
-		Debug.Log("new matieral selected: " + a_optionSelected.MaterialTemplate.Name);
 		foreach (var meshRenderer in m_currentMeshRenderers)
 		{
 			var materials = meshRenderer.materials;
