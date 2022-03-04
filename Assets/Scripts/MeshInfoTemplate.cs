@@ -40,8 +40,6 @@ public class MeshInfoTemplate : ScriptableObject
 	[SerializeField, Tooltip("List of the materials that are eligable to be swapped")]
 	private List<MaterialSlot> m_materialSlots;
 
-	//--- NonSerialized ---
-
 	#endregion Variables
 
 	#region Accessors
@@ -56,21 +54,4 @@ public class MeshInfoTemplate : ScriptableObject
 	public IList<MaterialSlot> MaterialSlots => m_materialSlots.AsReadOnly();
 
 	#endregion Accessors
-
-	#region Unity Messages
-	#endregion Unity Messages
-
-	#region Runtime Functions
-	#endregion Runtime Functions
-
-	#region Callback Functions
-	#endregion Callback Functions
-
-	#region Editor Functions
-
-#if UNITY_EDITOR
-
-#endif
-
-	#endregion Editor Functions
 }

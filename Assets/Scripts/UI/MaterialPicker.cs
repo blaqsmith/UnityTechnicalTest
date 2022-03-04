@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Manages the display of the available materials that you can replace with another selection
+/// </summary>
 public class MaterialPicker : MonoBehaviour
 {
-	#region Definitions
-	#endregion Definitions
-
 	#region Variables
 
 	//--- Serialized ---
@@ -20,19 +20,11 @@ public class MaterialPicker : MonoBehaviour
 
 	#endregion Variables
 
-	#region Accessors
-	#endregion Accessors
-
 	#region Unity Messages
 
 	private void OnEnable()
 	{
 		RefreshOptions(AppManager.Instance.AllMaterialTemplates);
-	}
-
-	private void OnDisable()
-	{
-
 	}
 
 	#endregion Unity Messages
@@ -46,15 +38,15 @@ public class MaterialPicker : MonoBehaviour
 
 	public void RefreshOptions(IList<MaterialInfoTemplate> a_templates)
 	{
-		ClearOptions();
+		ClearSelectionOptions();
 
 		foreach (var materialTemplate in a_templates)
 		{
-			CreateOption(materialTemplate);
+			CreateSelectionOption(materialTemplate);
 		}
 	}
 
-	private void ClearOptions()
+	private void ClearSelectionOptions()
 	{
 		for (int i = m_optionItems.Count - 1; i >= 0; i--)
 		{
@@ -64,7 +56,7 @@ public class MaterialPicker : MonoBehaviour
 		m_optionItems.Clear();
 	}
 
-	private void CreateOption(MaterialInfoTemplate a_materialTemplate)
+	private void CreateSelectionOption(MaterialInfoTemplate a_materialTemplate)
 	{
 		if (m_optionPrefab == null || a_materialTemplate == null)
 			return;
@@ -88,12 +80,4 @@ public class MaterialPicker : MonoBehaviour
 	}
 
 	#endregion Callback Functions
-
-	#region Editor Functions
-
-#if UNITY_EDITOR
-
-#endif
-
-	#endregion Editor Functions
 }

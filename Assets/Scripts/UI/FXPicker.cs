@@ -2,11 +2,11 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
+/// <summary>
+/// Manages UI for selecting and adjusting post processign effects
+/// </summary>
 public class FXPicker : MonoBehaviour
 {
-	#region Definitions
-	#endregion Definitions
-
 	#region Variables
 
 	//--- Serialized ---
@@ -38,9 +38,6 @@ public class FXPicker : MonoBehaviour
 
 	#endregion Variables
 
-	#region Accessors
-	#endregion Accessors
-
 	#region Unity Messages
 
 	private void Awake()
@@ -55,9 +52,6 @@ public class FXPicker : MonoBehaviour
 	}
 
 	#endregion Unity Messages
-
-	#region Runtime Functions
-	#endregion Runtime Functions
 
 	#region Callback Functions
 
@@ -129,14 +123,5 @@ public class FXPicker : MonoBehaviour
 		}
 	}
 
-
 	#endregion Callback Functions
-
-	#region Editor Functions
-
-#if UNITY_EDITOR
-
-#endif
-
-	#endregion Editor Functions
 }

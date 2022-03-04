@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Manages the visual display of the materials that you can select from to use on the current mesh
+/// </summary>
 public class MaterialsPanel : MonoBehaviour
 {
-	#region Definitions
-	#endregion Definitions
-
 	#region Variables
 
 	//--- Serialized ---
@@ -99,12 +99,4 @@ public class MaterialsPanel : MonoBehaviour
 	}
 
 	#endregion Callback Functions
-
-	#region Editor Functions
-
-#if UNITY_EDITOR
-
-#endif
-
-	#endregion Editor Functions
 }

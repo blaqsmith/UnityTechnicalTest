@@ -5,9 +5,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class MaterialOption : MonoBehaviour
 {
-	#region Definitions
-	#endregion Definitions
-
 	#region Variables
 
 	//--- Serialized ---

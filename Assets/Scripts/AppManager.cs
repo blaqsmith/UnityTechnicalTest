@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Provides housing for the main data collections, and general use refrences for the rest of the application
+/// </summary>
 public class AppManager : MonoBehaviour
 {
-	#region Definitions
-	#endregion Definitions
-
 	#region Variables
 
 	//--- Serialized ---
@@ -94,6 +94,10 @@ public class AppManager : MonoBehaviour
 			Destroy(a_gameObject);
 	}
 
+	//While not the best choice for this demonstration, this is example of how a central location can be used
+	//to maintain refresnces for prefabs that need to be instantiated. Any function that needs to display the prefab
+	//can call this function rather than maintaining its own reference. If the prefab ever changes, it can just be 
+	//updated in this one location, without having to track down all the references throughout the app.
 	public void OpenMaterialPicker(System.Action<MaterialOption> a_optionSelectedCallback)
 	{
 		if (m_materialPicker == null)
@@ -138,13 +142,5 @@ public class AppManager : MonoBehaviour
 		LoadNextLightGroup();
 	}
 
-	#endregion Callback Functions
-
-	#region Editor Functions
-
-#if UNITY_EDITOR
-
-#endif
-
-	#endregion Editor Functions
+	#endregion Callback Functionss
 }

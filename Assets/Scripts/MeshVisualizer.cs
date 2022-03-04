@@ -1,10 +1,10 @@
 using UnityEngine;
 
+/// <summary>
+/// Responsible for handling the display of the mesh itself
+/// </summary>
 public class MeshVisualizer : MonoBehaviour
 {
-	#region Definitions
-	#endregion Definitions
-
 	#region Variables
 
 	//--- Serialized ---
@@ -23,9 +23,6 @@ public class MeshVisualizer : MonoBehaviour
 	public GameObject CurrentMeshInstance { get; private set; }
 
 	#endregion Accessors
-
-	#region Unity Messages
-	#endregion Unity Messages
 
 	#region Runtime Functions
 
@@ -63,6 +60,8 @@ public class MeshVisualizer : MonoBehaviour
 		m_currentMaterialsPanel.RefreshOptions(CurrentMeshInstance, m_meshTemplate);
 	}
 
+	//While this is fairly simple in its current form, I prefer to put "cleanup" type code in its own function to 
+	//allow for easy expansion if/when a class becomes more complicated, while still maintaining a readable name
 	private void ReleaseGameObject(GameObject a_gameObject)
 	{
 		if (a_gameObject != null)
@@ -70,15 +69,4 @@ public class MeshVisualizer : MonoBehaviour
 	}
 
 	#endregion Runtime Functions
-
-	#region Callback Functions
-	#endregion Callback Functions
-
-	#region Editor Functions
-
-#if UNITY_EDITOR
-
-#endif
-
-	#endregion Editor Functions
 }

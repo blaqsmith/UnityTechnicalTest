@@ -3,11 +3,11 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
+/// <summary>
+/// Manages the movement of the mesh and the camera viewing it
+/// </summary>
 public class MeshViewController : MonoBehaviour
 {
-	#region Definitions
-	#endregion Definitions
-
 	#region Variables
 
 	//--- Serialized ---
@@ -41,9 +41,6 @@ public class MeshViewController : MonoBehaviour
 
 	#endregion Variables
 
-	#region Accessors
-	#endregion Accessors
-
 	#region Unity Messages
 
 	private void Awake()
@@ -56,6 +53,7 @@ public class MeshViewController : MonoBehaviour
 		m_moveInput = m_input.Movement.Move;
 		m_moveInput.Enable();
 
+		//Register click events
 		m_input.Movement.Fire.started += OnClick;
 		m_input.Movement.Fire.canceled += OnClick;
 		m_input.Movement.Fire.Enable();
@@ -63,6 +61,7 @@ public class MeshViewController : MonoBehaviour
 
 	private void OnDisable()
 	{
+		//Unregister click events
 		m_input.Movement.Fire.performed -= OnClick;
 		m_input.Movement.Fire.canceled -= OnClick;
 		m_input.Movement.Fire.Disable();
@@ -87,12 +86,12 @@ public class MeshViewController : MonoBehaviour
 
 	public void DirectSetAngle01(float a_value)
 	{
-		m_angleSlider.value = a_value;
+		m_angleSlider.value = Mathf.Clamp01(a_value);
 	}
 
 	public void DirectSetZoom01(float a_value)
 	{
-		m_zoomSlider.value = a_value;
+		m_zoomSlider.value = Mathf.Clamp01(a_value);
 	}
 
 
@@ -127,11 +126,4 @@ public class MeshViewController : MonoBehaviour
 	}
 
 	#endregion Callback Functions
-
-	#region Editor Functions
-
-#if UNITY_EDITOR
-#endif
-
-	#endregion Editor Functions
 }
