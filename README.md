@@ -1,6 +1,7 @@
 # UnityTechnicalTest
 
-Project can be downloaded wholesale to run in Unity 2020.3.11f1, or the Builds/Android or Builds/PC directories can be fetched for the standalone applications develope with this project.
+The whole repository can downloaded to as a Unity project folder, and will run in Unity 2020.3.11f1.
+Alternatively the Builds/Android or Builds/PC directories can be fetched for the standalone applications developed with this project.
 
 Once the application has started, hit "Next Mesh" in the upper left corner to load your first mesh visualization.
 
