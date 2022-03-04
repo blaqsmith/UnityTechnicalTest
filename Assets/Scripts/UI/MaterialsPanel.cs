@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CurrentModelMaterialsPanel : MonoBehaviour
+public class MaterialsPanel : MonoBehaviour
 {
 	#region Definitions
 	#endregion Definitions
@@ -43,8 +43,6 @@ public class CurrentModelMaterialsPanel : MonoBehaviour
 
 	private void ClearOptions()
 	{
-		//TODO: do we need to restore default materials before clearing?
-
 		for (int i = m_optionItems.Count - 1; i >= 0; i--)
 		{
 			Destroy(m_optionItems[i].gameObject);
@@ -58,7 +56,7 @@ public class CurrentModelMaterialsPanel : MonoBehaviour
 		if (m_optionPrefab == null || a_materialTemplate == null)
 			return;
 
-		var option = UnityEditor.PrefabUtility.InstantiatePrefab(m_optionPrefab, m_optionsRoot) as GameObject;
+		var option = Instantiate(m_optionPrefab, m_optionsRoot);
 		var optionItem = option.GetComponent<MaterialOption>();
 		if (optionItem != null)
 		{

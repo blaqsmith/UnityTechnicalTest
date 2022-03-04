@@ -15,6 +15,10 @@ MonoBehaviour:
   m_name: Globe
   m_basePrefab: {fileID: 4457449112408890508, guid: c5ba921bff109cf45b5f2d9a52fc1207, type: 3}
   m_previewSprite: {fileID: 0}
+  m_defaultPosition: {x: 0, y: 0, z: 0}
+  m_defaultRotation: {x: 0, y: 84.799904, z: 0}
+  m_defaultCameraAngle: 0.251111
+  m_defaultCameraZoom: 0.47
   m_materialSlots:
   - MaterialIndex: 0
     DefaultMaterialTemplate: {fileID: 11400000, guid: fb86b2f77e863ff4ba5dacb92833a03c, type: 2}

@@ -56,8 +56,6 @@ public class MaterialPicker : MonoBehaviour
 
 	private void ClearOptions()
 	{
-		//TODO: do we need to restore default materials before clearing?
-
 		for (int i = m_optionItems.Count - 1; i >= 0; i--)
 		{
 			Destroy(m_optionItems[i]);
@@ -71,7 +69,7 @@ public class MaterialPicker : MonoBehaviour
 		if (m_optionPrefab == null || a_materialTemplate == null)
 			return;
 
-		var option = UnityEditor.PrefabUtility.InstantiatePrefab(m_optionPrefab, m_optionsRoot) as GameObject;
+		var option = Instantiate(m_optionPrefab, m_optionsRoot);
 		var optionItem = option.GetComponent<MaterialOption>();
 		if (optionItem != null)
 			optionItem.Init(-1, a_materialTemplate, OnMaterialPicked);

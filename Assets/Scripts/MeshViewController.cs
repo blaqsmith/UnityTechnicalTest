@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
-public class ViewController : MonoBehaviour
+public class MeshViewController : MonoBehaviour
 {
 	#region Definitions
 	#endregion Definitions
@@ -26,6 +27,12 @@ public class ViewController : MonoBehaviour
 	private float m_cameraMinDist = 4;
 	[SerializeField]
 	private float m_cameraMaxDist = 16;
+
+	[Header("Control references")]
+	[SerializeField]
+	private Slider m_angleSlider;
+	[SerializeField]
+	private Slider m_zoomSlider;
 
 	//--- NonSerialized ---
 	private InputActions m_input;
@@ -77,6 +84,18 @@ public class ViewController : MonoBehaviour
 	#endregion Unity Messages
 
 	#region Runtime Functions
+
+	public void DirectSetAngle01(float a_value)
+	{
+		m_angleSlider.value = a_value;
+	}
+
+	public void DirectSetZoom01(float a_value)
+	{
+		m_zoomSlider.value = a_value;
+	}
+
+
 	#endregion Runtime Functions
 
 	#region Callback Functions

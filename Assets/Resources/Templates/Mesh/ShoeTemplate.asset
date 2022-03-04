@@ -10,11 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d15d4a937d4d9464ab7b48c83749fa69, type: 3}
-  m_Name: SpotlightTemplate
+  m_Name: ShoeTemplate
   m_EditorClassIdentifier: 
-  m_name: Spotlight
-  m_basePrefab: {fileID: 1000014155360034, guid: f6a113d2e028c214f80510a230d27055, type: 3}
+  m_name: Shoe
+  m_basePrefab: {fileID: 3719420831875675861, guid: e3ef976970bcf7243a53e6a9a67c70b5, type: 3}
   m_previewSprite: {fileID: 0}
+  m_defaultPosition: {x: 0, y: -1.42, z: 0}
+  m_defaultRotation: {x: 0, y: -50, z: 0}
+  m_defaultCameraAngle: 0.5
+  m_defaultCameraZoom: 0.33
   m_materialSlots:
   - MaterialIndex: 0
-    DefaultMaterialTemplate: {fileID: 11400000, guid: 9c4658c08a31c384f9e5f17e5c7764ba, type: 2}
+    DefaultMaterialTemplate: {fileID: 11400000, guid: 6c55382cf7bffcc468cef2366509ea8f, type: 2}

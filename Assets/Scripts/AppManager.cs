@@ -9,27 +9,27 @@ public class AppManager : MonoBehaviour
 	#region Variables
 
 	//--- Serialized ---
-	[SerializeField]
-	private Transform m_meshRoot;
-	[SerializeField]
-	private List<MeshInfoTemplate> m_meshTempaltes;
-	[SerializeField]
-	private List<GameObject> m_lightGroups;
-	[SerializeField]
-	private CurrentModelMaterialsPanel m_currentMaterialsPanel;
-	[SerializeField]
-	private List<MaterialInfoTemplate> m_materialTemplates;
-	[SerializeField]
-	private Canvas m_uiCanvas;
 
-	[Header("UI Prefabs")]
-	[SerializeField]
+	[Header("Refrences")]
+	[SerializeField, Tooltip("The visualizer responsible for displaying meshes")]
+	private MeshVisualizer m_meshVisualizer;
+	[SerializeField, Tooltip("Main UI canvas")]
+	private Canvas m_uiCanvas;
+	[SerializeField, Tooltip("Prefab to use to instantial this material picker")]
 	private GameObject m_materialPickerPrefab;
 
-	//--- NonSerialized ---
-	private static AppManager m_instance;
+	[Header("App Data")]
+	[SerializeField, Tooltip("A material that will be available to be applied to meshes")]
+	private List<MaterialInfoTemplate> m_materialTemplates;
+	[SerializeField, Tooltip("A meshe that will be cyceled through when you click the Next Mesh button")]
+	private List<MeshInfoTemplate> m_meshTemplates;
+	[SerializeField, Tooltip("A light that will be cyceled through when you click the Next LIght button")]
+	private List<GameObject> m_lightGroups;
 
-	private GameObject m_currentMeshInstance = null;
+
+	//--- NonSerialized ---
+	private static AppManager m_instance;   //For cheapo singleton behaviour
+
 	private GameObject m_currentLightGroup = null;
 	private int m_meshTemplateIndex = -1;
 	private int m_lightGroupIndex = -1;
@@ -40,8 +40,7 @@ public class AppManager : MonoBehaviour
 	#region Accessors
 
 	public static AppManager Instance => m_instance;
-
-	public IList<MeshInfoTemplate> AllMeshTemplates => m_meshTempaltes.AsReadOnly();
+	public IList<MeshInfoTemplate> AllMeshTemplates => m_meshTemplates.AsReadOnly();
 	public IList<GameObject> AllLightGroups => m_lightGroups.AsReadOnly();
 	public IList<MaterialInfoTemplate> AllMaterialTemplates => m_materialTemplates.AsReadOnly();
 
@@ -73,28 +72,6 @@ public class AppManager : MonoBehaviour
 
 	#region Runtime Functions
 
-	private void LoadNextMesh()
-	{
-		if (m_meshTempaltes == null || m_meshTempaltes.Count <= 0)
-			return;
-
-		m_meshTemplateIndex = (m_meshTemplateIndex + 1) % m_meshTempaltes.Count;
-		LoadMesh(m_meshTempaltes[m_meshTemplateIndex]);
-	}
-
-	private void LoadMesh(MeshInfoTemplate a_template)
-	{
-		ReleaseGameObject(m_currentMeshInstance);
-		m_currentMeshInstance = UnityEditor.PrefabUtility.InstantiatePrefab(a_template.BasePrefab, m_meshRoot) as GameObject;
-		m_currentMeshInstance.transform.localPosition = Vector3.zero;
-
-		//Make sure we have some lighting
-		if (m_currentLightGroup == null)
-			LoadNextLightGroup();
-
-		UpdateCurrentMaterials();
-	}
-
 	private void LoadNextLightGroup()
 	{
 		if (m_lightGroups == null || m_lightGroups.Count <= 0)
@@ -107,7 +84,7 @@ public class AppManager : MonoBehaviour
 	private void LoadLightGroup(GameObject a_lightGroup)
 	{
 		ReleaseGameObject(m_currentLightGroup);
-		m_currentLightGroup = UnityEditor.PrefabUtility.InstantiatePrefab(a_lightGroup) as GameObject;
+		m_currentLightGroup = Instantiate(a_lightGroup);
 		m_currentLightGroup.transform.localPosition = Vector3.zero;
 	}
 
@@ -115,14 +92,6 @@ public class AppManager : MonoBehaviour
 	{
 		if (a_gameObject != null)
 			Destroy(a_gameObject);
-	}
-
-	private void UpdateCurrentMaterials()
-	{
-		if (m_currentMeshInstance == null || m_currentMaterialsPanel == null)
-			return;
-
-		m_currentMaterialsPanel.RefreshOptions(m_currentMeshInstance, m_meshTempaltes[m_meshTemplateIndex]);
 	}
 
 	public void OpenMaterialPicker(System.Action<MaterialOption> a_optionSelectedCallback)
@@ -134,7 +103,7 @@ public class AppManager : MonoBehaviour
 				Debug.LogError("Could not create MaterialPicker UI due to invalid prefab definition in AppManager");
 			}
 
-			var ui = UnityEditor.PrefabUtility.InstantiatePrefab(m_materialPickerPrefab, m_uiCanvas.transform) as GameObject;
+			var ui = Instantiate(m_materialPickerPrefab, m_uiCanvas.transform);
 			if (ui == null)
 			{
 				Debug.LogError("Failed to isntantiate MaterialPicker prefab gameobject");
@@ -151,12 +120,20 @@ public class AppManager : MonoBehaviour
 
 	#region Callback Functions
 
-	public void OnLoadMeshButtonClicked()
+	public void OnNextMeshButtonClicked()
 	{
-		LoadNextMesh();
+		if (m_meshTemplates == null || m_meshTemplates.Count <= 0)
+			return;
+
+		m_meshTemplateIndex = (m_meshTemplateIndex + 1) % m_meshTemplates.Count;
+		m_meshVisualizer.LoadMesh(m_meshTemplates[m_meshTemplateIndex]);
+
+		//Make sure we have some lighting
+		if (m_currentLightGroup == null)
+			LoadNextLightGroup();
 	}
 
-	public void OnLoadLightButtonClicked()
+	public void OnNextLightButtonClicked()
 	{
 		LoadNextLightGroup();
 	}
