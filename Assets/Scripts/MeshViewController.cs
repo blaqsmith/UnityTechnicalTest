@@ -38,6 +38,7 @@ public class MeshViewController : MonoBehaviour
 	private InputActions m_input;
 	private InputAction m_moveInput;
 	private bool m_moveEnabled;
+	private float m_speedMultiplier = 1f;   //Magic number multiplier used to tamp device movement speed
 
 	#endregion Variables
 
@@ -46,6 +47,9 @@ public class MeshViewController : MonoBehaviour
 	private void Awake()
 	{
 		m_input = new InputActions();
+#if UNITY_ANDROID && !UNITY_EDITOR
+		m_speedMultiplier = .25f;
+#endif
 	}
 
 	private void OnEnable()
@@ -69,14 +73,29 @@ public class MeshViewController : MonoBehaviour
 
 	private void FixedUpdate()
 	{
-		//Only move when the mouse button is down and the point 
+#if UNITY_ANDROID && !UNITY_EDITOR
+		//This isn't checked on OnClick for devices, so do so here
+		//Enable movement on click/touch start, but not if it's over a UI element
+		if (EventSystem.current.IsPointerOverGameObject())
+			return;
+#endif
+
+#if !UNITY_ANDROID || UNITY_EDITOR
+		//On PC, only move when the mouse button is down and the point 
 		if (m_moveEnabled)
+#endif
 		{
 			var delta = m_moveInput.ReadValue<Vector2>();
-			transform.Rotate(Vector3.up, -delta.x * m_rotationSpeed);
+			if (delta.x != 0)
+			{
+				transform.Rotate(Vector3.up, -delta.x * m_rotationSpeed * m_speedMultiplier);
+			}
 
-			delta.x = 0;
-			transform.Translate(delta * m_moveSpeed);
+			if (delta.y != 0)
+			{
+				delta.x = 0;
+				transform.Translate(delta * m_moveSpeed * m_speedMultiplier);
+			}
 		}
 	}
 
@@ -101,13 +120,12 @@ public class MeshViewController : MonoBehaviour
 
 	private void OnClick(InputAction.CallbackContext a_context)
 	{
-		//Enable movement on click/touch start, but not if it's over a UI element
 		if (a_context.started && !EventSystem.current.IsPointerOverGameObject())
 		{
 			m_moveEnabled = true;
 		}
 
-		if (a_context.canceled)
+		if (m_moveEnabled && a_context.canceled)
 		{
 			m_moveEnabled = false;
 		}
